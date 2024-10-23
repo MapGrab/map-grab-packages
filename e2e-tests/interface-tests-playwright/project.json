@@ -1,0 +1,23 @@
+{
+  "name": "interface-tests-playwright",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "e2e-tests/interface-tests-playwright/src",
+  "projectType": "application",
+  "implicitDependencies": [
+    "interface-tests"
+  ],
+  "targets": {
+    "e2e": {
+      "executor": "@nx/playwright:playwright",
+      "outputs": [
+        "{workspaceRoot}/dist/.playwright/e2e-tests/interface-tests-playwright"
+      ],
+      "options": {
+        "config": "e2e-tests/interface-tests-playwright/playwright.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

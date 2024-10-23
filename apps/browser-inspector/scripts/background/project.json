@@ -1,0 +1,54 @@
+{
+  "name": "scripts-background",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/browser-inspector/scripts/background/src",
+  "tags": [
+    "type:script"
+  ],
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "extension/scripts/background",
+        "compiler": "babel",
+        "index": "",
+        "main": "apps/browser-inspector/scripts/background/src/main.ts",
+        "tsConfig": "apps/browser-inspector/scripts/background/tsconfig.app.json",
+        "generateIndexHtml": false,
+        "webpackConfig": "apps/browser-inspector/scripts/background/webpack.config.js"
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "outputHashing": "none",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": false,
+          "vendorChunk": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/webpack:dev-server",
+      "options": {
+        "buildTarget": "scripts-background:build"
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "scripts-background:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": [
+        "{options.outputFile}"
+      ]
+    }
+  }
+}

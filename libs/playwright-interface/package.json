@@ -1,0 +1,20 @@
+{
+  "name": "@mapgrab/playwright",
+  "version": "0.0.0-alpha.0",
+  "description": "The playwright interface to MapGrab",
+  "keywords": [
+    "MapGrab",
+    "mapgrab",
+    "automation",
+    "testing",
+    "test",
+    "playwright"
+  ],
+  "peerDependencies": {
+    "playwright": ">=1.20",
+    "@mapgrab/map-interface-types": "0.x"
+  },
+  "type": "commonjs",
+  "main": "./src/index.js",
+  "typings": "./src/index.d.ts"
+}

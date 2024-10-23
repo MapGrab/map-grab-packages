@@ -1,0 +1,39 @@
+{
+  "name": "interface-tests-cypress",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "e2e-tests/interface-tests-cypress/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "outputPath": "dist/e2e-test/interface-tests-cypress",
+        "main": "e2e-test/interface-tests-cypress/src/index.ts",
+        "tsConfig": "e2e-test/interface-tests-cypress/tsconfig.lib.json",
+        "assets": [
+          "e2e-test/interface-tests-cypress/*.md"
+        ]
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "e2e": {
+      "executor": "@nx/cypress:cypress",
+      "options": {
+        "cypressConfig": "e2e-tests/interface-tests-cypress/cypress.config.ts",
+        "testingType": "e2e",
+        "devServerTarget": "interface-tests:serve"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "interface-tests:serve:production"
+        }
+      }
+    }
+  }
+}

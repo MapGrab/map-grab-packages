@@ -1,0 +1,15 @@
+@import "mapbox-gl/dist/mapbox-gl.css";
+
+app-mapbox {
+  display: block;
+  width: 100%;
+  // box-sizing: border-box;
+  height: calc(100vh - 20px);
+}
+
+#map {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+}

@@ -1,0 +1,40 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2020", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "strict": true,
+    "exactOptionalPropertyTypes": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true,
+    "paths": {
+      "@mapgrab/cypress": ["libs/cypress-interface/src/index.ts"],
+      "@mapgrab/map-interface": ["libs/map-interface/src/index.ts"],
+      "@mapgrab/map-interface-types": ["libs/map-interface-types/src/index.ts"],
+      "@mapgrab/map-locator": ["libs/map-locator/src/index.ts"],
+      "@mapgrab/npm-setup": ["libs/npm-setup/src/index.ts"],
+      "@mapgrab/playwright": ["libs/playwright-interface/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

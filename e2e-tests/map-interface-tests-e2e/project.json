@@ -1,0 +1,23 @@
+{
+  "name": "map-interface-tests-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "e2e-tests/map-interface-tests-e2e/src",
+  "projectType": "application",
+  "implicitDependencies": [
+    "interface-tests"
+  ],
+  "targets": {
+    "e2e": {
+      "executor": "@nx/playwright:playwright",
+      "outputs": [
+        "{workspaceRoot}/dist/.playwright/e2e-tests/map-interface-tests-e2e"
+      ],
+      "options": {
+        "config": "e2e-tests/map-interface-tests-e2e/playwright.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

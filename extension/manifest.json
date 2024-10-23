@@ -1,0 +1,44 @@
+{
+  "name": "MapGrab Inspector",
+  "description": "MapGrab Inspector",
+  "version": "1.0.0",
+  "manifest_version": 3,
+  "homepage_url": "https://github.com/MapGrab/map-grab-packages/tree/main/apps/browser-inspector",
+  "background": {
+    "service_worker": "scripts/background/main.js"
+  },
+  "content_scripts": [
+    {
+      "all_frames": true,
+      "js": [
+        "scripts/content/main.js"
+      ],
+      "matches": [
+        "https://*/*",
+        "http://*/*"
+      ],
+      "run_at": "document_start"
+    }
+  ],
+  "action": {
+    "default_icon": {
+      "16": "images/icon-off/icon16.png",
+      "24": "images/icon-off/icon32.png",
+      "32": "images/icon-off/icon32.png"
+    }
+  },
+  "icons": {
+    "16": "images/base-icon/icon16.png",
+    "32": "images/base-icon/icon32.png",
+    "48": "images/base-icon/icon48.png",
+    "128": "images/base-icon/icon128.png"
+  },
+  "permissions": [
+    "tabs",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://*/*",
+    "http://*/*"
+  ]
+}

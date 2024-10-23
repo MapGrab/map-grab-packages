@@ -1,0 +1,3 @@
+[submodule "libs/map-interface"]
+	path = libs/map-interface
+	url = https://github.com/MapGrab/map-interface-submodule

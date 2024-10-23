@@ -1,0 +1,25 @@
+<style>
+  body {
+    height: 300px;
+    margin: 0;
+  }
+
+  .rect {
+    position: relative;
+    top: 10px;
+    left: 1px;
+    display: block;
+    width: 100px;
+    height: 100px;
+    background-color: red;
+    cursor: crosshair;
+  }
+</style>
+<div class="rect"></div>
+
+<script>
+  document.querySelector('div').addEventListener('mouseenter', ({ pageX, pageY }) => console.log(pageX, pageY));
+  document.querySelector('div').addEventListener('mouseleave', ({ pageX, pageY }) => console.log(pageX, pageY));
+  document.querySelector('div').addEventListener('mousemove', ({ pageX, pageY }) => console.log(pageX, pageY));
+  document.querySelector('div').addEventListener('click', ({ pageX, pageY }) => console.log('click', pageX, pageY));
+</script>
