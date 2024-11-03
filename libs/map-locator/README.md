@@ -1,11 +1,7 @@
-# map-locator
+# MapGrab MapLocator
 
-This library was generated with [Nx](https://nx.dev).
+This library is a [MapGrab](https://mapgrab.github.io/) locator interface
 
-## Building
+## MapGrab
 
-Run `nx build map-locator` to build the library.
-
-## Running unit tests
-
-Run `nx test map-locator` to execute the unit tests via [Jest](https://jestjs.io).
+MapGrab is a tool that enables the writing of automated map tests based on the MapLibre GL JS and Mapbox GL JS libraries.

@@ -1,11 +1,7 @@
-# npm-setup
+# MapGrab npm-setup
 
-This library was generated with [Nx](https://nx.dev).
+Setup the MapGrab private registry
 
-## Building
+## MapGrab
 
-Run `nx build npm-setup` to build the library.
-
-## Running unit tests
-
-Run `nx test npm-setup` to execute the unit tests via [Jest](https://jestjs.io).
+MapGrab is a tool that enables the writing of automated map tests based on the MapLibre GL JS and Mapbox GL JS libraries.

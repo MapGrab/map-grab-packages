@@ -1,10 +1,25 @@
 {
   "name": "@mapgrab/map-interface-types",
-  "version": "0.0.0",
+  "version": "0.1.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MapGrab/map-grab-packages"
+  },
+  "homepage": "https://mapgrab.github.io",
+  "keywords": [
+    "MapGrab",
+    "mapgrab",
+    "automation",
+    "testing",
+    "test",
+    "e2e",
+    "mapbox-gl-js",
+    "maplibre-gl-js"
+  ],
   "dependencies": {
     "tslib": "^2.3.0",
     "@types/mapbox__point-geometry": "^0.1.4",
-    "@mapbox/point-geometry": "0.1.0"
+    "@mapbox/point-geometry": "0.x"
   },
   "type": "commonjs",
   "main": "./src/index.js",

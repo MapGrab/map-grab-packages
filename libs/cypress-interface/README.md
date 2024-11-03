@@ -1,7 +1,7 @@
-# cypress-interface
+# MapGrab Cypress Interface
 
-This library was generated with [Nx](https://nx.dev).
+This library is a [MapGrab](https://mapgrab.github.io/) testing tool for Cypress.
 
-## Building
+## MapGrab
 
-Run `nx build cypress-interface` to build the library.
+MapGrab is a tool that enables the writing of automated map tests based on the MapLibre GL JS and Mapbox GL JS libraries.

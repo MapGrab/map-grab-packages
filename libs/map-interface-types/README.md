@@ -1,11 +1,7 @@
-# map-interface-types
+# MapGrab map-interface-types
 
-This library was generated with [Nx](https://nx.dev).
+This library contains internal Map Types for [MapGrab](https://mapgrab.github.io/) Map Interface
 
-## Building
+## MapGrab
 
-Run `nx build map-interface-types` to build the library.
-
-## Running unit tests
-
-Run `nx test map-interface-types` to execute the unit tests via [Jest](https://jestjs.io).
+MapGrab is a tool that enables the writing of automated map tests based on the MapLibre GL JS and Mapbox GL JS libraries.
