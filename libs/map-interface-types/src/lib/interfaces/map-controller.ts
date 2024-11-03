@@ -58,6 +58,7 @@ export interface MapControllerInterface {
   removeBackground(): void;
   waitToMapLoaded(): Promise<boolean> | boolean;
   waitToMapStable(): Promise<void> | void;
+  waitToMapRepaint(): Promise<void> | void;
   projectLngLatToScreenPoint(lngLat: LngLatLike): PointInterface;
   unprojectScreenPointToLngLat(point: PointInterface): LngLatInterface;
 }

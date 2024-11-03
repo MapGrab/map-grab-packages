@@ -85,12 +85,16 @@ export class MapController {
     });
   }
 
-  public waitToMapLoaded() {
-    return this.getMapController().then((c) => this.cy.wrap(c.waitToMapLoaded()));
+  public waitToMapLoaded(opts?: { timeout?: number }) {
+    return this.getMapController().then((c) => this.cy.wrap(c.waitToMapLoaded(), opts));
   }
 
-  public waitToMapStable() {
-    return this.getMapController().then((map) => this.cy.wrap(map.waitToMapStable()));
+  public waitToMapRepaint(opts?: { timeout?: number }) {
+    return this.getMapController().then((c) => this.cy.wrap(c.waitToMapRepaint(), opts));
+  }
+
+  public waitToMapStable(opts?: { timeout?: number }) {
+    return this.getMapController().then((map) => this.cy.wrap(map.waitToMapStable(), opts));
   }
 
   public getMapInstance(): Cypress.Chainable<MapType> {

@@ -12,7 +12,7 @@ import {
   PointLike,
   SetViewOptions,
 } from '@mapgrab/map-interface-types';
-import type { JSHandle, Locator, Page } from '@playwright/test';
+import { errors, type JSHandle, type Locator, type Page } from '@playwright/test';
 
 export class MapController {
   protected mapInterfaceHandle?: JSHandle<MapInterfaceI>;
@@ -134,16 +134,22 @@ export class MapController {
     });
   }
 
-  public async waitToMapLoaded(): Promise<void> {
-    const mapInterface = await this.getMapInterface();
-
-    await mapInterface.evaluate((mapInterface) => mapInterface.controller.waitToMapLoaded());
+  public async waitToMapLoaded(opts?: { timeout?: number }): Promise<void> {
+    await this.evaluateOnController((controller) => controller.waitToMapLoaded(), {
+      options: opts,
+    });
   }
 
-  public async waitToMapStable(): Promise<void> {
-    const mapInterface = await this.getMapInterface();
+  public async waitToMapStable(opts?: { timeout?: number }): Promise<void> {
+    await this.evaluateOnController((controller) => controller.waitToMapStable(), {
+      options: opts,
+    });
+  }
 
-    await mapInterface.evaluate((mapInterface) => mapInterface.controller.waitToMapStable());
+  public async waitToMapRepaint(opts?: { timeout?: number }): Promise<void> {
+    await this.evaluateOnController((controller) => controller.waitToMapRepaint(), {
+      options: opts,
+    });
   }
 
   public async getMapInstance(): Promise<JSHandle<MapType>> {
@@ -192,12 +198,24 @@ export class MapController {
 
   private async evaluateOnController<Args, T>(
     callback: (controller: MapControllerInterface, args: Args) => T,
-    params?: { args?: Args; options?: { waitToStable?: boolean } }
+    params?: { args?: Args; options?: { waitToStable?: boolean; timeout?: number } | undefined }
   ): Promise<T> {
     const controllerHandle = await this.getMapController();
 
-    //@ts-ignore
-    const result = controllerHandle.evaluate(callback, params?.args);
+    const result: T = await new Promise((resolve, reject) => {
+      const timeout = params?.options?.timeout
+        ? setTimeout(() => reject(new errors.TimeoutError()), params?.options?.timeout)
+        : undefined;
+
+      controllerHandle
+        //@ts-ignore
+        .evaluate(callback, params?.args)
+        .then((data) => {
+          clearTimeout(timeout);
+          resolve(data);
+        })
+        .catch(reject);
+    });
 
     if (params?.options?.waitToStable) {
       await this.waitToMapStable();

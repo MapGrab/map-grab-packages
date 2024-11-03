@@ -1,5 +1,5 @@
 import { expect, MapController } from '@mapgrab/playwright';
-import { JSHandle } from '@playwright/test';
+import { JSHandle, errors } from '@playwright/test';
 
 import { test } from '../../fixtures/base.fixture';
 import { MapRect, MapType } from '@mapgrab/map-interface-types';
@@ -26,6 +26,29 @@ async function spyOnMap(controller: MapController, method: keyof MapType): Promi
 }
 
 test.describe('Map Controller', () => {
+  test.describe('waitToMapRepaint()', () => {
+    test('should wait map to repaint', async ({ page, mainMapController: controller }) => {
+      await page.goto('');
+
+      await controller.waitToMapStable();
+
+      await Promise.all([
+        controller.fitMapToBounds([11, 32, 19, 48], { animate: true, duration: 4000 }),
+        controller.waitToMapRepaint(),
+      ]);
+
+      await expect(await page.screenshot()).toMatchSnapshot('wait-to-repaint.png');
+    });
+
+    test('should throw timeout error when map not repaint', async ({ page, mainMapController: controller }) => {
+      await page.goto('');
+
+      await controller.waitToMapStable();
+
+      await expect(() => controller.waitToMapRepaint({ timeout: 4000 })).rejects.toThrowError(errors.TimeoutError);
+    });
+  });
+
   test.describe('setView()', () => {
     test('should execute jumpTo method on map instance', async ({ page, mainMapController: controller }) => {
       await page.goto('');
