@@ -1,6 +1,6 @@
 {
   "name": "@mapgrab/playwright",
-  "version": "0.0.0-alpha.0",
+  "version": "0.0.0",
   "description": "The playwright interface to MapGrab",
   "keywords": [
     "MapGrab",
@@ -8,6 +8,9 @@
     "automation",
     "testing",
     "test",
+    "e2e",
+    "mapbox-gl-js",
+    "maplibre-gl-js",
     "playwright"
   ],
   "peerDependencies": {
