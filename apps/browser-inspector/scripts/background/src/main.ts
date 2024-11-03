@@ -5,23 +5,18 @@ const state: { [key in string]: { activated?: boolean; interfaceInitialized?: bo
 function setIcon(tabId: number, icon: string) {
   chrome.action.setIcon({
     tabId,
-    path: icon,
+    path: `/images/${icon}`,
   });
 }
 
-function executeJS(tabId: number, func: () => void): void {
-  chrome.scripting.executeScript({
-    target: {
-      tabId,
-    },
-    func,
-    world: 'MAIN',
-  });
-}
+const executeJS = <T>(tabId: number, func: () => T) =>
+  new Promise<chrome.scripting.InjectionResult<chrome.scripting.Awaited<T>>[]>((resolve) => {
+    chrome.scripting.executeScript({ target: { tabId }, func, world: 'MAIN' }, resolve);
+  }).then((r) => (r ? r : []));
 
 function update(tabId: number) {
-  if (!state[tabId]) {
-    setIcon(tabId, '/images/icon-off/icon32.png');
+  if (!state[tabId]?.interfaceInitialized) {
+    setIcon(tabId, 'icon-off/icon32.png');
 
     return;
   }
@@ -29,13 +24,13 @@ function update(tabId: number) {
   const { activated, interfaceInitialized } = state[tabId]!;
 
   if (activated && interfaceInitialized) {
-    setIcon(tabId, '/images/icon-on/icon32.png');
+    setIcon(tabId, 'icon-on/icon32.png');
 
     executeJS(tabId, () => {
       window.__MAPGRAB__.enableInspector();
     });
   } else if (interfaceInitialized) {
-    setIcon(tabId, '/images/base-icon/icon32.png');
+    setIcon(tabId, 'base-icon/icon32.png');
 
     executeJS(tabId, () => {
       window.__MAPGRAB__.disableInspector();
@@ -43,24 +38,36 @@ function update(tabId: number) {
   }
 }
 
-chrome.action.onClicked.addListener((tab) => {
-  state[tab.id!] = { ...state[tab.id!], activated: !state[tab.id!]?.activated };
+function checkInterfaceInitialized(tabId: number) {
+  executeJS(tabId, () => {
+    return !!window.__MAPGRAB__?.enableInspector as boolean;
+  }).then(([initialized]) => {
+    if (initialized != null && ((!state[tabId] && initialized.result) || state[tabId])) {
+      state[tabId] = { ...(state[tabId] || {}), interfaceInitialized: initialized.result };
 
-  update(tab.id!);
+      update(tabId);
+    }
+  });
+}
+
+const canExecute = (tab: chrome.tabs.Tab) => tab.url?.startsWith('http');
+
+chrome.action.onClicked.addListener((tab) => {
+  if (canExecute(tab) && tab.id != null && state[tab.id]?.interfaceInitialized) {
+    state[tab.id]!.activated = !state[tab.id!]?.activated;
+
+    update(tab.id);
+  }
 });
 
-chrome.tabs.onUpdated.addListener((tabId, changeInfo) => {
-  if (changeInfo.status === 'loading') {
-    state[tabId] = { ...(state[tabId] ?? {}), interfaceInitialized: false };
-
-    update(tabId);
+chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+  if (canExecute(tab) && changeInfo.status === 'loading') {
+    checkInterfaceInitialized(tabId);
   }
 });
 
 chrome.runtime.onMessage.addListener(function (request, sender, _sendResponse) {
   if (request === MapGrabEvents.MAP_INTERFACE_INIT) {
-    state[sender.tab?.id!] = { ...state[sender.tab?.id!], interfaceInitialized: true };
-
-    update(sender.tab?.id!);
+    checkInterfaceInitialized(sender.tab?.id!);
   }
 });
