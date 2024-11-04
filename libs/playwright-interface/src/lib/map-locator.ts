@@ -222,6 +222,8 @@ export class MapLocator {
       );
     }
 
+    await this.waitToMapStable();
+
     const bbox = await this.boundingBox({ padding: opts?.padding, offset: opts?.offset, relativeTo: 'rootWindow' }),
       screenshot = await this.page.screenshot({ clip: bbox, fullPage: true });
 

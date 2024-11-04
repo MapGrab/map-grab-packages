@@ -1,6 +1,6 @@
 {
   "name": "@mapgrab/playwright",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "The playwright interface to MapGrab",
   "repository": {
     "type": "git",
