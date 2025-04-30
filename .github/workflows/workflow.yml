@@ -1,30 +1,21 @@
 name: main-workflow
-on: push
+on: workflow_dispatch
 jobs:
-  # run-e2e-macos:
-  #   name: run-e2e-macos
-  #   runs-on: macos-latest
-  #   env:
-  #     CI_MAC_OS: true
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - uses: oven-sh/setup-bun@v1
-  #     - run: bun install
-  #     - name: 'Run test'
-  #       working-directory: e2e-tests/interface-tests-playwright
-  #       run: |
-  #         npx playwright install
-  #         npx playwright test --project=webkit-mapbox
-  #     - name: 'XX'
-  #       working-directory: e2e-tests/interface-tests-playwright
-  #       run: aws s3 cp src/tests s3://mapgrab/ --recursive
-  #     - name: Archive production artifacts
-  #       if: failure()
-  #       uses: actions/upload-artifact@v4
-  #       with:
-  #         name: dist-without-markdown
-  #         path: |
-  #           e2e-tests/interface-tests-playwright/src/tests
+  run-e2e-macos:
+    name: run-e2e-macos
+    runs-on: macos-latest
+    env:
+      CI_MAC_OS: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - name: Install dependencies
+        run: pnpm install
+      - name: 'Run test'
+        working-directory: e2e-tests/interface-tests-playwright
+        run: |
+          npx playwright install
+          npx playwright test -c ./e2e-tests/map-interface-tests-e2e/playwright.config.ts
 
   # run-e2e:
   #   name: run-e2e
