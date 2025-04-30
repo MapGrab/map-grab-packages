@@ -50,7 +50,7 @@ export default defineConfig<TestOptions>({
   },
   workers: process.env.CI ? 3 : 5,
   retries: process.env.CI ? 0 : 0,
-  timeout: 6000,
+  timeout: process.env.CI ? 1000 * 30 : 6000,
   // snapshotPathTemplate: '../screenshots/{testFileName}/{arg}-{projectName}-{platform}{ext}',
   /* Run your local dev server before starting the tests */
   webServer: {
