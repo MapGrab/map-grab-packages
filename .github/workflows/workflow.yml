@@ -14,7 +14,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install
       - name: 'Run test'
-        working-directory: e2e-tests/interface-tests-playwright
+        working-directory: e2e-tests/map-interface-tests-e2e
         run: |
           npx playwright install
           npx playwright test -c ./playwright.config.ts

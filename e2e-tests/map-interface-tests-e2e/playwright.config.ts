@@ -20,6 +20,23 @@ export type TestOptions = {
   isMapbox: boolean;
 };
 
+const opts = {
+  deviceScaleFactor: 1,
+  launchOptions: {
+    args: [
+      // https://peter.sh/experiments/chromium-command-line-switches/
+      '--force-device-scale-factor=1', // Overrides the device scale factor for the browser UI and the contents.
+      '--force-color-profile=srgb', // Force all monitors to be treated as though they have the specified color profile.
+      '--use-angle',
+      '--enable-webgl',
+      '--enable-gpu',
+      '--enable-webgl-image-chromium',
+      '--ignore-gpu-blocklist',
+    ],
+  },
+};
+
+
 export default defineConfig<TestOptions>({
   ...nxE2EPreset(__filename, { testDir: './src' }),
 
@@ -31,7 +48,7 @@ export default defineConfig<TestOptions>({
     baseURL: `${baseURL}/maplibre/`,
     // video: 'retain-on-failure',
   },
-  workers: process.env.CI ? 1 : 5,
+  workers: process.env.CI ? 3 : 5,
   retries: process.env.CI ? 0 : 0,
   timeout: 6000,
   // snapshotPathTemplate: '../screenshots/{testFileName}/{arg}-{projectName}-{platform}{ext}',
@@ -50,14 +67,12 @@ export default defineConfig<TestOptions>({
         channel: 'chromium',
         baseURL: `${baseURL}/maplibre/`,
         isMapLibre: true,
-        launchOptions: {
-          args: ['--no-sandbox', '--use-angle=gl', '--ignore-gpu-blocklist'],
-        },
+        ...opts,
       },
     },
     {
       name: 'firefox-maplibre',
-      use: { ...devices['firefox'], baseURL: `${baseURL}/maplibre/`, isMapLibre: true },
+      use: { ...devices['firefox'], baseURL: `${baseURL}/maplibre/`, isMapLibre: true, ...opts, },
     },
     ...(!process.env.CI || process.env.CI_MAC_OS
       ? [
@@ -67,9 +82,7 @@ export default defineConfig<TestOptions>({
               ...devices['webkit'],
               baseURL: `${baseURL}/maplibre/`,
               isMapLibre: true,
-              launchOptions: {
-                args: ['--no-sandbox', '--use-angle=gl'],
-              },
+              ...opts,
             },
           },
         ]
@@ -82,14 +95,12 @@ export default defineConfig<TestOptions>({
         channel: 'chromium',
         baseURL: `${baseURL}/mapbox/`,
         isMapbox: true,
-        launchOptions: {
-          args: ['--no-sandbox', '--use-angle=gl'],
-        },
+        ...opts,
       },
     },
     {
       name: 'firefox-mapbox',
-      use: { ...devices['firefox'], baseURL: `${baseURL}/mapbox/`, isMapbox: true },
+      use: { ...devices['firefox'], baseURL: `${baseURL}/mapbox/`, isMapbox: true, ...opts, },
     },
     ...(!process.env.CI || process.env.CI_MAC_OS
       ? [
@@ -99,9 +110,7 @@ export default defineConfig<TestOptions>({
               ...devices['webkit'],
               baseURL: `${baseURL}/mapbox/`,
               isMapbox: true,
-              launchOptions: {
-                args: ['--no-sandbox', '--use-angle=gl'],
-              },
+              ...opts,
             },
           },
         ]
