@@ -1,0 +1,31 @@
+{
+  "name": "@mapgrab/map-interface",
+  "version": "1.0.1",
+  "description": "The MapGrab map interface",
+  "homepage": "https://mapgrab.github.io",
+  "license": "MIT",
+  "keywords": [
+    "MapGrab",
+    "mapgrab",
+    "automation",
+    "testing",
+    "test",
+    "e2e",
+    "mapbox-gl-js",
+    "maplibre-gl-js"
+  ],
+  "readme": "README.md",
+  "dependencies": {
+    "tslib": "^2.3.0",
+    "@turf/bbox-clip": "7.0.0",
+    "@turf/meta": "7.0.0",
+    "@mapgrab/map-interface-types": "0.x",
+    "@mapgrab/map-locator": "0.x"
+  },
+  "peerDependencies": {
+    "maplibre-gl": ">=4.3.0",
+    "mapbox-gl": ">=2.0.0"
+  },
+  "main": "./src/index.js",
+  "typings": "./src/index.d.ts"
+}

@@ -32,7 +32,6 @@
       "@mapgrab/map-interface": ["libs/map-interface/src/index.ts"],
       "@mapgrab/map-interface-types": ["libs/map-interface-types/src/index.ts"],
       "@mapgrab/map-locator": ["libs/map-locator/src/index.ts"],
-      "@mapgrab/npm-setup": ["libs/npm-setup/src/index.ts"],
       "@mapgrab/playwright": ["libs/playwright-interface/src/index.ts"]
     }
   },

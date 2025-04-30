@@ -1,0 +1,38 @@
+{
+  "name": "map-interface",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/map-interface/src",
+  "projectType": "library",
+  "release": {
+    "version": {
+      "generatorOptions": {
+        "packageRoot": "dist/{projectRoot}",
+        "currentVersionResolver": "git-tag"
+      }
+    }
+  },
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/rollup:rollup",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "outputPath": "dist/libs/map-interface",
+        "main": "libs/map-interface/src/index.ts",
+        "tsConfig": "libs/map-interface/tsconfig.lib.json",
+        "format": [
+          "esm"
+        ],
+        "project": "libs/map-interface/package.json",
+        "rollupConfig": "libs/map-interface/rollupConfig.js"
+      }
+    },
+    "nx-release-publish": {
+      "options": {
+        "packageRoot": "dist/{projectRoot}"
+      }
+    }
+  }
+}
